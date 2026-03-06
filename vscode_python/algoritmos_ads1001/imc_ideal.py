@@ -5,3 +5,11 @@
 #ENTRADAS
 sexo = input("Informe seu sexo: ")
 altura = float(input("Informe sua altura em metros: "))
+
+#PROCESSAMENTO
+if sexo == "masculino":
+    imc_ideal = round(altura * 72.7 - 58, 2)
+    print("Seu imc ideal é igual a:", imc_ideal)
+else:
+    imc_ideal = round(altura * 62.1 - 44.7, 2)
+    print("Seu imc ideal é igual a:", imc_ideal)
