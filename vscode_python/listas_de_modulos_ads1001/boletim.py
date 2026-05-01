@@ -1,86 +1,81 @@
-# Recebe uma lista de valores e devolve a média deles 
-def calcular_media(valores):
-    # Modo 1: iterar sobre os valores da lista
+# Recebe uma lista de valores e devolve a média deles
+def calcular_media (valores):
+    
+    #  Método 1: Iterar sobre os valores da lista
     soma = 0
-    for i in valores:
-        soma += i
+    for v in valores:
+        soma = soma + v
     media1 = soma / len(valores)
-
-    # Modo 2: iterar sobre os índices da lista (corrigido)
-    soma = 0 
+    
+    # Método 2: Iterar sobre os índices da lista
+    soma = 0
     for i in range(len(valores)):
-        soma += valores[i]
-    media2 = soma / len(valores)
-
-    # Modo 3: utilizando funções prontas
+        soma = soma + valores[i]
+    meida2 = soma / len(valores)
+    
+    #  Método 3: Utilizando as funções de lista
     media3 = sum(valores) / len(valores)
+    
+    return media3
 
-    return media1  # pode retornar qualquer uma (todas estão corretas agora)
-
-
-# Recebe a lista completa de notas e devolve as abaixo da média
-def filtro_notas_abaixo_media(valores, nota_minima):
+# Receber a lista completa de notas e devolver a lista de notas abaixo da nota mínima
+def filtro_notas_abaixo_media (valores, nota_minima):
+    
     reprovados = []
-
-    for i in valores:
-        if i < nota_minima:
-            reprovados.append(i)
-
+    for v in valores:
+        if v < nota_minima:
+            reprovados.append(v)
     return reprovados
 
+# Recebe uma nota e classifica em "Bom, Regular , Excelente e Insuficiente"
+def classifica_nota (valor):
+    
+    if valor >= 9: return "Excelente"
+    if valor >= 7: return "Bom"
+    if valor >= 5: return "Regular"
+    return "Insuficiente"
 
-# Classifica uma única nota
-def classifica_notas(valor):
-    if valor >= 9:
-        return 'excelente'
-    if valor >= 7:
-        return 'bom'
-    if valor >= 5:
-        return 'regular'
-    return 'insuficiente'
+# Define a maior nota (max) da uma lista selecionada
+def maior_nota (notas):
+    maior_nota = max(notas)
+    return maior_nota
+
+# Verifica todos valores das listas valores e nomes e entrega apenas o nome do melhor aluno 
+def melhor_aluno (valores, nomes):
+    maior_nota = valores[0]
+    melhor_aluno = nomes[0]
+    for i in range(1, len(valores)):
+        if valores[i] > maior_nota:
+            maior_nota = valores[i]
+            melhor_aluno = nomes[i]
+    return melhor_aluno
 
 
 # Programa principal
 notas = [5, 6, 4, 10]
-
 media = calcular_media(notas)
-filtro = filtro_notas_abaixo_media(notas, 6.0)
 
-# Classificar cada nota (corrigido)
-classificacoes = [classifica_notas(nota) for nota in notas]
+# Mesma coisa de maneiras diferentes
+print(f"Média dos alunos: {media:.2f}")
+print(f"Média dos alunos: {calcular_media(notas):.2f}")
 
-print(f"Média das notas: {media:.2f}")
-print(f"Notas abaixo da média: {filtro}")
-print(f"Classificação das notas: {classificacoes}")
-print(f"Percentual de notas abaixo da mínima: {len(filtro) / len(notas) * 100}%")
+print(f"A média da turma foi: {classifica_nota(media)}")
 
-# ====================================================================================================================== #
+abaixo_minimo = filtro_notas_abaixo_media(notas, 6.0)
+print(f"Notas abaixo do mínimo: {filtro_notas_abaixo_media(notas, 6.0)}")
+print(f"Tivemos {len(abaixo_minimo)} notas abaixo da nota mínima")
 
-#EXERCÍCIO:
+print(f"Percentual de notas abaixo da mínima: {len(abaixo_minimo) / len(notas) * 100}%")
 
-#Suponha que temos agora a lista de nomes que correponde ás notas dadas:
-nomes = ["Luís", "José", "Lizandra", "Julia"]
+# Suponha que temos agora a lista de nomes que correpsondem às notas dadas:
+nomes = ["Luis", "João", "Lizandra", "Julia"]
 
-#1. construir uma função que encontra a maior nota
-print(f"Maior nota: {max(notas)}")
+# 1 - Contruir uma função que encontra a maior nota
+print(f"A maior nota foi: {maior_nota(notas)}")
 
-#2. construir uma função que encontra o nome do aluno que tem a maior nota 
-def atribuir_maior_nota_aluno(nomes, notas):
-    maior_nota = max(notas)              # encontra a maior nota
-    posicao_nota = notas.index(maior_nota)     # encontra a posição dessa nota
-    return nomes[posicao_nota]                 # retorna o nome correspondente
+# 2 - Construir uma função que encontra o nome do aluno que tem a maior nota
+print(f"O melhor aluno é: {melhor_aluno(notas, nomes)}")
 
-aluno = atribuir_maior_nota_aluno(nomes, notas)
-
-print(f"Aluno(a) com a maior nota: {aluno}")
-
-#3. o professor deu um aumento de 20% em cada nota, sem ultrapassar 10
-def aumento_20_porcento(nota):
-    nova_nota = nota * 1.20
-    if nova_nota > 10:
-        nova_nota = 10
-    return round(nova_nota, 2)
-
-notas_com_aumento = [aumento_20_porcento(nota) for nota in notas]
-
-print(f"Notas com aumento: {notas_com_aumento}")
+# 3 - O professor ficou muito bonzinho e fez um acréscimo de 20% em cada nota, sem ultrapassar 10
+# Criar uma função que recebe a lista de notas e a altera acrescentando os 20%, sem ultrapassar 10
+# print(f"As notas após o acrescimo serão: {acrescimo_nota(notas)}")
